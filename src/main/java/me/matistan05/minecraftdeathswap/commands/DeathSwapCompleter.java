@@ -88,6 +88,9 @@ public class DeathSwapCompleter implements TabCompleter {
             if (args.length == 2 && startsWith("@a", args[1])) {
                 list.add("@a");
             }
+            if (args.length == 2 && startsWith("@s", args[1])) {
+                list.add("@s");
+            }
             for (Player player : tabPlayers) {
                 if (startsWith(player.getName(), args[args.length - 1])) {
                     list.add(player.getName());
