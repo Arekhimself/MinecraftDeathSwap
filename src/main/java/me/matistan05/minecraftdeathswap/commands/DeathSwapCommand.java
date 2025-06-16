@@ -52,8 +52,10 @@ public class DeathSwapCommand implements CommandExecutor {
             p.sendMessage(ChatColor.BLUE + "Here is a list of death swap commands:");
             p.sendMessage(ChatColor.YELLOW + "/deathswap add <player> <player> ... " + ChatColor.AQUA + "- adds players to a death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap add @a " + ChatColor.AQUA + "- adds all players");
+            p.sendMessage(ChatColor.YELLOW + "/deathswap add @s " + ChatColor.AQUA + "- add yourself to a death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap remove <player> <player> ... " + ChatColor.AQUA + "- removes players from your death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap remove @a " + ChatColor.AQUA + "- removes all players");
+            p.sendMessage(ChatColor.YELLOW + "/deathswap remove @s " + ChatColor.AQUA + "- remove yourself from death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap start " + ChatColor.AQUA + "- starts a death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap reset " + ChatColor.AQUA + "- deletes a death swap game");
             p.sendMessage(ChatColor.YELLOW + "/deathswap list " + ChatColor.AQUA + "- shows a list of players in death swap game");
@@ -153,6 +155,19 @@ public class DeathSwapCommand implements CommandExecutor {
                 }
                 return true;
             }
+            if (args[1].equals("@s")) {
+                if (args.length != 2) {
+                    p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /deathswap help");
+                    return true;
+                }
+                if(!players.contains(p.getName()) && !inGame ) {
+                	players.add(p.getName());
+                	p.sendMessage(ChatColor.AQUA + "You're now in the players list!");
+                } else {
+                	p.sendMessage(ChatColor.RED + "You're already in players list !");
+                }
+                return true;
+            }
             for(int i = 1; i < args.length; i++) {
                 Player target = Bukkit.getPlayerExact(args[i]);
                 if(target == null || players.contains(target.getName())) {continue;}
@@ -190,6 +205,19 @@ public class DeathSwapCommand implements CommandExecutor {
                     p.sendMessage(ChatColor.AQUA + "Successfully removed " + count + " player" + (count == 1 ? "" : "s") + " from the game!");
                 } else {
                     p.sendMessage(ChatColor.RED + "No player was removed!");
+                }
+                return true;
+            }
+            if (args[1].equals("@s")) {
+                if (args.length != 2) {
+                    p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /deathswap help");
+                    return true;
+                }
+                if(players.contains(p.getName()) && !inGame) {
+	                removePlayer(p.getName());
+	                p.sendMessage(ChatColor.AQUA + "You have been removed from the players list!");
+                } else {
+                	p.sendMessage(ChatColor.RED + "You not in players list !");
                 }
                 return true;
             }
