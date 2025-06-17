@@ -1,5 +1,6 @@
 # Minecraft Death Swap
 
+All credits to Matistan (https://github.com/Matistan/MinecraftDeathSwap)
 ---
 
 View on [Spigot](https://www.spigotmc.org/resources/death-swap.109401/) •
